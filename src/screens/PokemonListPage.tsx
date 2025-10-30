@@ -16,10 +16,10 @@ export const PokemonListPage = () => {
     );
   }
   if (error) {
-    <div className={classes.root}>There was an error.</div>;
+    return <div className={classes.root}>There was an error.</div>;
   }
   if (!data?.length) {
-    <div className={classes.root}>There is no data</div>;
+    return <div className={classes.root}>There is no data.</div>;
   }
   return (
     <div className={classes.root}>
