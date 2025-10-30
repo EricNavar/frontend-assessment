@@ -7,9 +7,8 @@ export const PokemonListItem = (props: { data: Pokemon }) => {
   const { data } = props;
   return (
     <div className={classes.itemCard}>
-      <h2>
-        {data.id}: {data.name}
-      </h2>
+      <span>{data.id}</span>
+      <h2>{data.name}</h2>
       <p>{data.types?.map((t) => <span key={t}>{t}</span>)}</p>
       <img src={data.sprite} alt="" width="200px" />
     </div>
