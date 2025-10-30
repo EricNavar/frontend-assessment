@@ -17,7 +17,7 @@ export const PokemonListPage = () => {
   const { classes } = useStyles();
   const [searchString, setSearchString] = useState<string>('');
   const [modalOpen, setModalOpen] = useState<boolean>(false);
-  const [selectedPokemon, setSelectedPokemon] = useState<string>('');
+  const [selectedPokemon, setSelectedPokemon] = useState<number>(-1);
   const { data, loading, error } = useGetPokemons();
 
   const filteredData = useMemo(() => filterPokemonData(data, searchString), [data, searchString]);
@@ -26,7 +26,7 @@ export const PokemonListPage = () => {
     setSearchString(e.currentTarget.value);
   };
 
-  const onClickButton = (id: string) => {
+  const onClickButton = (id: number) => {
     console.log(id);
     setModalOpen(true);
     setSelectedPokemon(id);
@@ -55,11 +55,7 @@ export const PokemonListPage = () => {
 
   return (
     <div className={classes.root}>
-      <PokemonDetailsModal
-        isVisible={modalOpen}
-        handleClose={closeModal}
-        pokemonId={selectedPokemon}
-      />
+      {modalOpen && <PokemonDetailsModal handleClose={closeModal} pokemonId={selectedPokemon} />}
       <input type="text" value={searchString} onChange={onChangeSearchString} />
       <ul>{generateSearchResults()}</ul>
     </div>

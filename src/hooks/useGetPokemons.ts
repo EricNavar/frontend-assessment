@@ -2,14 +2,22 @@ import { gql } from '@apollo/client';
 import { useQuery } from '@apollo/client/react';
 
 export interface Pokemon {
-  id: string;
+  id: number;
   name: string;
   types?: string[];
   sprite?: string;
 }
 
 export interface PokemonDetail extends Pokemon {
-  // Details
+  captureRate: number;
+  weight: number;
+  height: number;
+  stats: Stat[];
+}
+
+interface Stat {
+  statName: string;
+  baseStat: number;
 }
 
 export const GET_POKEMONS = gql`
@@ -44,7 +52,7 @@ export const GET_POKEMONS = gql`
 `;
 
 export const GET_POKEMON_DETAILS = gql`
-  query GetPokemonDetails($id: String!) {
+  query GetPokemonDetails($id: Int!) {
     pokemon(where: { id: { _eq: $id } }) {
       id
       pokemonspecy {
@@ -81,7 +89,14 @@ export const useGetPokemons = (/* search?: string */): {
   loading: boolean;
   error: useQuery.Result['error'];
 } => {
-  const { data, loading, error } = useQuery<{ pokemon: any[] }>(GET_POKEMONS, {
+  const { data, loading, error } = useQuery<{
+    pokemon: {
+      id: number;
+      pokemonspecy: { pokemonspeciesnames: { name: string }[] };
+      pokemontypes: { type: { typenames: { name: string }[] } }[];
+      pokemonsprites: { sprites: string }[];
+    }[];
+  }>(GET_POKEMONS, {
     variables: {
       search: '', // `.*${search}.*`,
     },
@@ -91,8 +106,8 @@ export const useGetPokemons = (/* search?: string */): {
     data:
       data?.pokemon?.map(
         (p): Pokemon => ({
-          id: String(p.id),
-          name: p.pokemonspecy.pokemonspeciesnames?.[0]?.name,
+          id: p.id,
+          name: p.pokemonspecy?.pokemonspeciesnames?.[0]?.name,
           types: p.pokemontypes?.map(
             (t: { type: { typenames: { name: string }[] } }) => t?.type?.typenames?.[0]?.name,
           ),
@@ -105,31 +120,50 @@ export const useGetPokemons = (/* search?: string */): {
 };
 
 export const useGetPokemonDetails = (
-  pokemonId: string,
+  pokemonId: number,
 ): {
-  data: Pokemon[];
+  data: PokemonDetail | null;
   loading: boolean;
   error: useQuery.Result['error'];
 } => {
-  console.log(pokemonId);
-  const { data, loading, error } = useQuery<{ pokemon: any[] }>(GET_POKEMONS, {
+  const { data, loading, error } = useQuery<{
+    pokemon: {
+      pokemonstats: { stat: { name: any }; base_stat: any }[];
+      weight: number;
+      id: number;
+      pokemonspecy: {
+        capture_rate: number;
+        pokemonspeciesnames: { name: string }[];
+      };
+      pokemontypes: { type: { typenames: { name: string }[] } }[];
+      pokemonsprites: { sprites: string }[];
+    }[];
+  }>(GET_POKEMON_DETAILS, {
     variables: {
-      search: '', // `.*${search}.*`,
+      id: pokemonId,
     },
   });
 
   return {
     data:
       data?.pokemon?.map(
-        (p): Pokemon => ({
-          id: String(p.id),
-          name: p.pokemonspecy.pokemonspeciesnames?.[0]?.name,
+        (p): PokemonDetail => ({
+          id: p.id,
+          name: p.pokemonspecy?.pokemonspeciesnames?.[0]?.name,
           types: p.pokemontypes?.map(
             (t: { type: { typenames: { name: string }[] } }) => t?.type?.typenames?.[0]?.name,
           ),
           sprite: p.pokemonsprites?.[0]?.sprites,
+          captureRate: p.pokemonspecy.capture_rate,
+          weight: p.weight,
+          height: p.weight,
+          stats:
+            p.pokemonstats?.map((s) => ({
+              statName: s.stat?.name,
+              baseStat: s.base_stat,
+            })) ?? [],
         }),
-      ) ?? [],
+      )[0] ?? null,
     loading,
     error,
   };

@@ -5,7 +5,7 @@ import { TypeChip } from './TypeChip';
 
 interface IPokemonListItem {
   data: Pokemon;
-  onClick: (id: string) => void;
+  onClick: (id: number) => void;
 }
 
 export const PokemonListItem = (props: IPokemonListItem) => {
