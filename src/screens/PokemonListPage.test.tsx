@@ -6,6 +6,7 @@ import { useGetPokemons } from 'src/hooks/useGetPokemons';
 import { bulbasaur } from 'src/__mocks__/mock-pokemon';
 
 jest.mock('src/hooks/useGetPokemons', () => ({
+  ...jest.requireActual('src/hooks/useGetPokemons'),
   useGetPokemons: jest.fn().mockReturnValue({ data: [{ id: '1', name: 'Bulbasaur' }] }),
 }));
 
@@ -16,6 +17,8 @@ jest.mock('react-router-dom', () => ({
 
 const useGetPokemonsMock = useGetPokemons as jest.MockedFunction<typeof useGetPokemons>;
 
+const useNavigateMock = useNavigate as jest.MockedFunction<typeof useNavigate>;
+
 describe('PokemonListPage', () => {
   test('it renders', () => {
     useGetPokemonsMock.mockReturnValue({ data: [bulbasaur], error: undefined, loading: false });
@@ -25,7 +28,7 @@ describe('PokemonListPage', () => {
   test('clicking on a pokemon calls navigate', async () => {
     useGetPokemonsMock.mockReturnValue({ data: [bulbasaur], error: undefined, loading: false });
     const mockNavigate = jest.fn();
-    (useNavigate as jest.Mock).mockReturnValue(mockNavigate);
+    useNavigateMock.mockReturnValue(mockNavigate);
     const { getByText, user } = render(<PokemonListPage />);
 
     await act(async () => {
