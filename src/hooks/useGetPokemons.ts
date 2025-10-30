@@ -103,3 +103,34 @@ export const useGetPokemons = (/* search?: string */): {
     error,
   };
 };
+
+export const useGetPokemonDetails = (
+  pokemonId: string,
+): {
+  data: Pokemon[];
+  loading: boolean;
+  error: useQuery.Result['error'];
+} => {
+  console.log(pokemonId);
+  const { data, loading, error } = useQuery<{ pokemon: any[] }>(GET_POKEMONS, {
+    variables: {
+      search: '', // `.*${search}.*`,
+    },
+  });
+
+  return {
+    data:
+      data?.pokemon?.map(
+        (p): Pokemon => ({
+          id: String(p.id),
+          name: p.pokemonspecy.pokemonspeciesnames?.[0]?.name,
+          types: p.pokemontypes?.map(
+            (t: { type: { typenames: { name: string }[] } }) => t?.type?.typenames?.[0]?.name,
+          ),
+          sprite: p.pokemonsprites?.[0]?.sprites,
+        }),
+      ) ?? [],
+    loading,
+    error,
+  };
+};
