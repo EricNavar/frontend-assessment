@@ -1,4 +1,4 @@
-export enum TypeName {
+export enum PokemonType {
   NORMAL = 'Normal',
   FIRE = 'Fire',
   WATER = 'Water',
@@ -17,4 +17,13 @@ export enum TypeName {
   DARK = 'Dark',
   STEEL = 'Steel',
   FAIRY = 'Fairy',
+}
+
+export enum PokemonStatEnum {
+  HP = 'HP',
+  ATTACK = 'Attack',
+  DEFENSE = 'Defense',
+  SPEC_ATTACK = 'Special Attack',
+  SPEC_DEFENSE = 'Special Defense',
+  SPEED = 'Speed',
 }

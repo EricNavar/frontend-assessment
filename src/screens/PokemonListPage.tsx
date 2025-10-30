@@ -43,7 +43,7 @@ export const PokemonListPage = () => {
       return <p>There is no data.</p>;
     }
     return filteredData.map((d) => (
-      <li style={{ listStyle: 'none' }} key={d.id}>
+      <li className={classes.listItem} key={d.id}>
         <PokemonListItem data={d} onClick={onClickButton} />
       </li>
     ));
@@ -57,7 +57,7 @@ export const PokemonListPage = () => {
     <div className={classes.root}>
       {modalOpen && <PokemonDetailsModal handleClose={closeModal} pokemonId={selectedPokemon} />}
       <input type="text" value={searchString} onChange={onChangeSearchString} />
-      <ul>{generateSearchResults()}</ul>
+      <ul className={classes.list}>{generateSearchResults()}</ul>
     </div>
   );
 };
@@ -65,5 +65,14 @@ export const PokemonListPage = () => {
 const useStyles = tss.create(({ theme }) => ({
   root: {
     color: theme.color.text.primary,
+  },
+  list: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    maxWidth: '100%',
+    flexDirection: 'row',
+  },
+  listItem: {
+    listStyle: 'none',
   },
 }));

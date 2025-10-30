@@ -15,8 +15,8 @@ export const PokemonListItem = (props: IPokemonListItem) => {
   return (
     <button className={classes.itemCard} onClick={() => onClick(data.id)}>
       <div>
-        <h2>{data.name}</h2>
-        <p>No. {data.id}</p>
+        <span className={classes.idNo}>No. {data.id}</span>
+        <h2 style={{ marginTop: 8 }}>{data.name}</h2>
         {data.types?.map((t) => <TypeChip key={t} typeName={t} />)}
       </div>
       <img src={data.sprite} alt={data.name} width="200px" height="200px" />
@@ -28,13 +28,18 @@ const useStyles = tss.create(({ theme }) => ({
   itemCard: {
     borderStyle: 'solid',
     borderColor: theme.color.text.primary,
+    color: theme.color.text.primary,
     borderWidth: 1,
     borderRadius: 2,
-    margin: 4,
+    margin: 8,
     padding: 8,
     ':hover': {
-      background: 'rgba(255,255,255,.08)',
-      cursor: 'pointer',
+      background: '#222222',
     },
+    backgroundColor: '#000000',
+    textAlign: 'left',
+  },
+  idNo: {
+    color: theme.color.text.secondary,
   },
 }));

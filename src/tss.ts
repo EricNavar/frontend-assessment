@@ -8,8 +8,9 @@ function useContext() {
       surface: '#000E1C',
       text: {
         primary: '#FAFAFA',
+        secondary: '#AAAAAA',
       },
-      types: {
+      type: {
         Normal: '#A8A77A',
         Fire: '#EE8130',
         Water: '#6390F0',
@@ -28,6 +29,14 @@ function useContext() {
         Dark: '#705746',
         Steel: '#B7B7CE',
         Fairy: '#D685AD',
+      },
+      stat: {
+        HP: '#69dc12',
+        Attack: '#efcc18',
+        Defense: '#e86412',
+        'Special Attack': '#14c3f1',
+        'Special Defense': '#4a6adf',
+        Speed: '#d51dad',
       },
     },
   };

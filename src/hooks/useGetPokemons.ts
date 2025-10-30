@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client';
 import { useQuery } from '@apollo/client/react';
+import { PokemonStatEnum } from 'src/types';
 
 export interface Pokemon {
   id: number;
@@ -15,8 +16,8 @@ export interface PokemonDetail extends Pokemon {
   stats: Stat[];
 }
 
-interface Stat {
-  statName: string;
+export interface Stat {
+  statName: PokemonStatEnum;
   baseStat: number;
 }
 
@@ -119,6 +120,25 @@ export const useGetPokemons = (/* search?: string */): {
   };
 };
 
+const mapStatName = (rawStatName: string) => {
+  switch (rawStatName) {
+    case 'hp':
+      return PokemonStatEnum.HP;
+    case 'attack':
+      return PokemonStatEnum.ATTACK;
+    case 'defense':
+      return PokemonStatEnum.DEFENSE;
+    case 'special-attack':
+      return PokemonStatEnum.SPEC_ATTACK;
+    case 'special-defense':
+      return PokemonStatEnum.SPEC_DEFENSE;
+    case 'speed':
+      return PokemonStatEnum.SPEED;
+    default:
+      return rawStatName;
+  }
+};
+
 export const useGetPokemonDetails = (
   pokemonId: number,
 ): {
@@ -128,7 +148,7 @@ export const useGetPokemonDetails = (
 } => {
   const { data, loading, error } = useQuery<{
     pokemon: {
-      pokemonstats: { stat: { name: any }; base_stat: any }[];
+      pokemonstats: { stat: { name: string }; base_stat: number }[];
       weight: number;
       id: number;
       pokemonspecy: {
@@ -159,7 +179,7 @@ export const useGetPokemonDetails = (
           height: p.weight,
           stats:
             p.pokemonstats?.map((s) => ({
-              statName: s.stat?.name,
+              statName: mapStatName(s.stat?.name),
               baseStat: s.base_stat,
             })) ?? [],
         }),

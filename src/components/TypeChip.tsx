@@ -1,14 +1,14 @@
 import React from 'react';
 import { tss } from 'src/tss';
-import { TypeName } from 'src/types';
+import { PokemonType } from 'src/types';
 
 export const TypeChip = (props: { typeName: string }) => {
   const { typeName } = props;
-  const { classes } = useStyles({ typeName: typeName as TypeName });
+  const { classes } = useStyles({ typeName: typeName as PokemonType });
   return <span className={classes.typeChip}>{typeName}</span>;
 };
 
-const useStyles = tss.withParams<{ typeName: TypeName }>().create(({ theme, typeName }) => ({
+const useStyles = tss.withParams<{ typeName: PokemonType }>().create(({ theme, typeName }) => ({
   typeChip: {
     margin: 2,
     paddingTop: 2,
@@ -16,9 +16,13 @@ const useStyles = tss.withParams<{ typeName: TypeName }>().create(({ theme, type
     paddingLeft: 4,
     paddingRight: 4,
     borderRadius: 1,
-    backgroundColor: theme.color.types[typeName],
+    backgroundColor: theme.color.type[typeName],
     color: theme.color.text.primary,
     textTransform: 'uppercase',
     textShadow: '1px 1px black', // TODO: don't hardcode the color black
+    display: 'inline-flex',
+    textAlign: 'center',
+    minWidth: 75,
+    justifyContent: 'center',
   },
 }));
