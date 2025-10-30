@@ -1,6 +1,7 @@
 import React from 'react';
 import { tss } from '../tss';
 import { useGetPokemons } from 'src/hooks/useGetPokemons';
+import { PokemonListItem } from 'src/components/PokemonListItem';
 
 export const PokemonListPage = () => {
   const { classes } = useStyles();
@@ -8,7 +9,7 @@ export const PokemonListPage = () => {
 
   return (
     <div className={classes.root}>
-      <ul>{data?.map((d) => <li key={d.id}>{d.name}</li>)}</ul>
+      <ul>{data?.map((d) => <PokemonListItem key={d.id} data={d} />)}</ul>
     </div>
   );
 };
