@@ -6,6 +6,7 @@ function useContext() {
   const theme = {
     color: {
       surface: '#000E1C',
+      modal: '#001a33',
       text: {
         primary: '#FAFAFA',
         secondary: '#AAAAAA',

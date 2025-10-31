@@ -4,6 +4,7 @@ import { TypeChip } from './TypeChip';
 import { IndeterminateProgressIndicator } from './IndeterminateProgressIndicator';
 import { tss } from '../tss';
 import { PokemonStatEnum } from '../types';
+import { Modal } from 'antd';
 
 interface IPokemonDetailsModal {
   handleClose: () => void;
@@ -52,12 +53,10 @@ export const PokemonDetailsModal = (props: IPokemonDetailsModal) => {
     }
     return (
       <>
-        <div style={{ display: 'flex', justifyContent: 'right' }}>
-          <button onClick={handleClose}>Close</button>
-        </div>
         <div>
-          <h2>{data.name}</h2>
-          <p>No. {data.id}</p>
+          <h2>
+            <span className={classes.idNo}>No. {data.id}</span>&nbsp;&nbsp;{data.name}
+          </h2>
           {data.types?.map((t) => <TypeChip key={t} typeName={t} />)}
         </div>
         <img src={data.sprite} alt={data.name} width="200px" height="200px" />
@@ -79,16 +78,15 @@ export const PokemonDetailsModal = (props: IPokemonDetailsModal) => {
   };
 
   return (
-    <dialog open className={classes.dialog}>
+    <Modal open onCancel={handleClose} footer={null}>
       {getDialogContents()}
-    </dialog>
+    </Modal>
   );
 };
 
 const useStyles = tss.create(({ theme }) => ({
-  dialog: {
-    color: theme.color.text.primary,
-    backgroundColor: 'black',
-    minWidth: 400,
+  idNo: {
+    color: theme.color.text.secondary,
+    fontSize: 16,
   },
 }));
