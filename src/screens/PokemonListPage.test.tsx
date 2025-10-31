@@ -2,12 +2,13 @@ import React from 'react';
 import { act, fireEvent, render } from 'src/test-utils';
 import { PokemonListPage } from './PokemonListPage';
 import { useNavigate } from 'react-router-dom';
-import { useGetPokemons } from 'src/hooks/useGetPokemons';
-import { bulbasaur } from 'src/__mocks__/mock-pokemon';
+import { useGetPokemonDetails, useGetPokemons } from 'src/hooks/useGetPokemons';
+import { bulbasaurSummary, bulbasaurDetails } from 'src/__mocks__/mock-pokemon';
 
 jest.mock('src/hooks/useGetPokemons', () => ({
   ...jest.requireActual('src/hooks/useGetPokemons'),
   useGetPokemons: jest.fn().mockReturnValue({ data: [{ id: '1', name: 'Bulbasaur' }] }),
+  useGetPokemonDetails: jest.fn(),
 }));
 
 jest.mock('react-router-dom', () => ({
@@ -17,16 +18,33 @@ jest.mock('react-router-dom', () => ({
 
 const useGetPokemonsMock = useGetPokemons as jest.MockedFunction<typeof useGetPokemons>;
 
+const useGetPokemonDetailsMock = useGetPokemonDetails as jest.MockedFunction<
+  typeof useGetPokemonDetails
+>;
+
 const useNavigateMock = useNavigate as jest.MockedFunction<typeof useNavigate>;
 
 describe('PokemonListPage', () => {
   test('it renders', () => {
-    useGetPokemonsMock.mockReturnValue({ data: [bulbasaur], error: undefined, loading: false });
+    useGetPokemonsMock.mockReturnValue({
+      data: [bulbasaurSummary],
+      error: undefined,
+      loading: false,
+    });
     const { getByText } = render(<PokemonListPage />);
     getByText('Bulbasaur');
   });
   test('clicking on a pokemon calls navigate', async () => {
-    useGetPokemonsMock.mockReturnValue({ data: [bulbasaur], error: undefined, loading: false });
+    useGetPokemonsMock.mockReturnValue({
+      data: [bulbasaurSummary],
+      error: undefined,
+      loading: false,
+    });
+    useGetPokemonDetailsMock.mockReturnValue({
+      data: bulbasaurDetails,
+      error: undefined,
+      loading: false,
+    });
     const mockNavigate = jest.fn();
     useNavigateMock.mockReturnValue(mockNavigate);
     const { getByText, user } = render(<PokemonListPage />);
@@ -35,7 +53,7 @@ describe('PokemonListPage', () => {
       await user.click(getByText('Bulbasaur'));
     });
 
-    expect(mockNavigate).toHaveBeenCalledWith(/* The route to Bulbasaur */);
+    expect(mockNavigate).toHaveBeenCalledWith('/pokemon/1');
   });
 
   test.todo('typing in the search bar filters the results');

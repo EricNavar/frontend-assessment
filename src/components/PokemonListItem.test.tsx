@@ -1,11 +1,12 @@
 import React from 'react';
 import { render } from 'src/test-utils';
 import { PokemonListItem } from './PokemonListItem';
-import { bulbasaur } from 'src/__mocks__/mock-pokemon';
+import { bulbasaurSummary } from 'src/__mocks__/mock-pokemon';
 
 describe('PokemonListItem', () => {
   test('it renders', () => {
-    const { getByText } = render(<PokemonListItem data={bulbasaur} />);
+    const onClickMock = jest.fn();
+    const { getByText } = render(<PokemonListItem data={bulbasaurSummary} onClick={onClickMock} />);
     getByText('Bulbasaur');
   });
   test.todo('hover on list item');
