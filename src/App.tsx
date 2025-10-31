@@ -24,6 +24,7 @@ const App = () => (
           <Route path="/pokemon/:id" element={<PokemonDetailsPage />} />
           <Route path="*" element={<Navigate to="/list" replace />} />
         </Route>
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   </ApolloProvider>
