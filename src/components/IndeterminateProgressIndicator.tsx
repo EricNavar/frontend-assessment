@@ -6,7 +6,7 @@ export const IndeterminateProgressIndicator = () => {
   const { classes } = useStyles();
   // Pokeball SVG: https://www.streamlinehq.com/icons/download/pokeball--29169
   return (
-    <div>
+    <div className={classes.center}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -25,7 +25,7 @@ export const IndeterminateProgressIndicator = () => {
         <path d="M3 12h6" strokeWidth="2" />
         <path d="M15 12h6" strokeWidth="2" />
       </svg>
-      <p>Loading...</p>
+      <p className={classes.text}>Loading...</p>
     </div>
   );
 };
@@ -40,8 +40,16 @@ const spin = keyframes({
   },
 });
 
-const useStyles = tss.create(() => ({
+const useStyles = tss.create(({ theme }) => ({
+  center: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
   spin: {
     animation: `${spin} 1s linear infinite`,
+  },
+  text: {
+    marginTop: 8,
+    color: theme.color.text.primary,
   },
 }));

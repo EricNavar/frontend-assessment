@@ -9,11 +9,8 @@ import { ErrorModal } from 'src/components/ErrorModal';
 
 // filters based on name
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
-const filterPokemonData = (data: Pokemon[], searchString: string) => {
-  // TODO: simplify. maybe just use simple indexOf
-  const regex = new RegExp(searchString.trim(), 'i');
-  return data.filter((pokemon) => regex.test(pokemon.name));
-};
+const filterPokemonData = (data: Pokemon[], searchString: string) =>
+  data.filter((pokemon) => pokemon.name.toLowerCase().includes(searchString.toLocaleLowerCase()));
 
 interface IPokemonListPage {
   // eslint-disable-next-line react/require-default-props
@@ -21,7 +18,6 @@ interface IPokemonListPage {
 }
 
 export const PokemonListPage = ({ pokemonId }: IPokemonListPage) => {
-  console.log('pokemonId', pokemonId);
   const { classes } = useStyles();
   const [searchString, setSearchString] = useState<string>('');
   const [detailsModalOpen, setDetailsModalOpen] = useState<boolean>(pokemonId !== undefined);
@@ -38,7 +34,6 @@ export const PokemonListPage = ({ pokemonId }: IPokemonListPage) => {
 
   const onClickButton = (id: number) => {
     navigate(`/pokemon/${id}`);
-    console.log(id);
     setDetailsModalOpen(true);
     setSelectedPokemon(id);
   };
