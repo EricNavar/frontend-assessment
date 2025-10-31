@@ -8,9 +8,10 @@ import { useNavigate } from 'react-router-dom';
 import { ErrorModal } from '../components/ErrorModal';
 
 // filters based on name
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
 const filterPokemonData = (data: Pokemon[], searchString: string) =>
-  data.filter((pokemon) => pokemon.name.toLowerCase().includes(searchString.toLocaleLowerCase()));
+  data.filter((pokemon) =>
+    pokemon.name.toLowerCase().includes(searchString.trim().toLocaleLowerCase()),
+  );
 
 interface IPokemonListPage {
   // eslint-disable-next-line react/require-default-props

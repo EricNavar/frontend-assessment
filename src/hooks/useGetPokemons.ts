@@ -132,10 +132,8 @@ const mapStatName = (rawStatName: string) => {
       return PokemonStatEnum.SPEC_ATTACK;
     case 'special-defense':
       return PokemonStatEnum.SPEC_DEFENSE;
-    case 'speed':
-      return PokemonStatEnum.SPEED;
     default:
-      return rawStatName;
+      return PokemonStatEnum.SPEED;
   }
 };
 
