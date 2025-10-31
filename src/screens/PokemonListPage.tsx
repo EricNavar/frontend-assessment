@@ -73,9 +73,9 @@ export const PokemonListPage = ({ pokemonId }: IPokemonListPage) => {
       {detailsModalOpen && selectedPokemon > 0 && (
         <PokemonDetailsModal handleClose={closeDetailsModal} pokemonId={selectedPokemon} />
       )}
-      <h1>Pokedex</h1>
+      <h1>Pokédex</h1>
       <label htmlFor="search-bar">
-        Pokemon Search
+        Pokémon Search
         <br />
         <input
           className={classes.searchBar}

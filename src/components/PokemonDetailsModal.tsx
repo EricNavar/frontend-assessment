@@ -46,10 +46,10 @@ export const PokemonDetailsModal = (props: IPokemonDetailsModal) => {
       return <IndeterminateProgressIndicator />;
     }
     if (error) {
-      return <p>There was an error loading the Pokemon details.</p>;
+      return <p>There was an error loading the Pokémon details.</p>;
     }
     if (!data) {
-      return <p>Could not load Pokemon details.</p>;
+      return <p>Could not load Pokémon details.</p>;
     }
     return (
       <>

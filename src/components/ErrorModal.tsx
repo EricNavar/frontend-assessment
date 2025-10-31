@@ -13,7 +13,7 @@ export const ErrorModal = (props: IErrorModal) => {
       <div style={{ display: 'flex', justifyContent: 'right' }}>
         <button onClick={handleClose}>Close</button>
       </div>
-      Pokemon does not exist.
+      Pokémon does not exist.
     </Modal>
   );
 };

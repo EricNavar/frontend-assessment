@@ -47,7 +47,7 @@ describe('PokemonDetailsModal', () => {
     const { getByText, queryByText } = render(
       <PokemonDetailsModal handleClose={jest.fn()} pokemonId={1} />,
     );
-    getByText('There was an error loading the Pokemon details.');
+    getByText('There was an error loading the Pokémon details.');
     expect(queryByText('Base Stats')).toBeNull();
   });
 
@@ -60,7 +60,7 @@ describe('PokemonDetailsModal', () => {
     const { getByText, queryByText } = render(
       <PokemonDetailsModal handleClose={jest.fn()} pokemonId={1} />,
     );
-    getByText('Could not load Pokemon details.');
+    getByText('Could not load Pokémon details.');
     expect(queryByText('Base Stats')).toBeNull();
   });
 });

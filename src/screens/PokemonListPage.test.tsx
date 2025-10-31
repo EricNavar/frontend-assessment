@@ -103,10 +103,10 @@ describe('PokemonListPage', () => {
 
     getByText('Bulbasaur');
     getByText('Charizard');
-    fireEvent.change(getByLabelText('Pokemon Search'), { target: { value: 'Bulbasaur' } });
+    fireEvent.change(getByLabelText('Pokémon Search'), { target: { value: 'Bulbasaur' } });
     getByText('Bulbasaur');
     expect(queryByText('Charizard')).toBeNull();
-    fireEvent.change(getByLabelText('Pokemon Search'), { target: { value: '' } });
+    fireEvent.change(getByLabelText('Pokémon Search'), { target: { value: '' } });
     getByText('Bulbasaur');
     getByText('Charizard');
   });

@@ -44,11 +44,11 @@ describe('PokemonDetailsPage', () => {
       loading: false,
     });
     useParamsMock.mockReturnValue({ id: '1' });
-    const { getByText, queryByText } = render(<PokemonDetailsPage />);
-    getByText('Pokedex');
+    const { getByText, queryByText, getByLabelText } = render(<PokemonDetailsPage />);
+    getByText('Pokédex');
     getByText('Base Stats');
-    fireEvent.click(getByText('Close'));
-    getByText('Pokedex');
+    fireEvent.click(getByLabelText('Close'));
+    getByText('Pokédex');
     expect(queryByText('Base Stats')).toBeFalsy();
   });
 
@@ -59,11 +59,11 @@ describe('PokemonDetailsPage', () => {
       loading: false,
     });
     useParamsMock.mockReturnValue({ id: 'bulbasaur' });
-    const { getByText, queryByText } = render(<PokemonDetailsPage />);
-    getByText('Pokedex');
-    getByText('Pokemon does not exist.');
-    fireEvent.click(getByText('Close'));
-    getByText('Pokedex');
+    const { getByText, queryByText, getByLabelText } = render(<PokemonDetailsPage />);
+    getByText('Pokédex');
+    getByText('Pokémon does not exist.');
+    fireEvent.click(getByLabelText('Close'));
+    getByText('Pokédex');
     expect(queryByText('Base Stats')).toBeFalsy();
   });
 });
