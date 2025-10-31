@@ -42,6 +42,7 @@ export const PokemonDetailsModal = (props: IPokemonDetailsModal) => {
   const { classes } = useStyles();
   const getDialogContents = () => {
     if (loading) {
+      // todo: make loading icon slightly bigger and center it
       return <IndeterminateProgressIndicator />;
     }
     if (error) {

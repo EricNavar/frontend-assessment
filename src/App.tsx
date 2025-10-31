@@ -5,6 +5,7 @@ import { LayoutWrapper } from './LayoutWrapper';
 import { ApolloProvider } from '@apollo/client/react';
 import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
 import { HomePage } from './screens/HomePage';
+import { PokemonDetailsPage } from './screens/PokemonDetailsPage';
 
 const client = new ApolloClient({
   link: new HttpLink({
@@ -20,6 +21,7 @@ const App = () => (
         <Route path="/" element={<LayoutWrapper />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/list" element={<PokemonListPage />} />
+          <Route path="/pokemon/:id" element={<PokemonDetailsPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
