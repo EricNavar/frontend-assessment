@@ -5,6 +5,7 @@ import { PokemonListItem } from 'src/components/PokemonListItem';
 import { IndeterminateProgressIndicator } from 'src/components/IndeterminateProgressIndicator';
 import { PokemonDetailsModal } from 'src/components/PokemonDetailsModal';
 import { useNavigate } from 'react-router-dom';
+import { ErrorModal } from 'src/components/ErrorModal';
 
 // filters based on name
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
@@ -15,16 +16,17 @@ const filterPokemonData = (data: Pokemon[], searchString: string) => {
 };
 
 interface IPokemonListPage {
-  // I did specify a default value but I was still getting a lint error so I disabled the error
   // eslint-disable-next-line react/require-default-props
   pokemonId?: number;
 }
 
-export const PokemonListPage = ({ pokemonId = -1 }: IPokemonListPage) => {
+export const PokemonListPage = ({ pokemonId }: IPokemonListPage) => {
+  console.log('pokemonId', pokemonId);
   const { classes } = useStyles();
   const [searchString, setSearchString] = useState<string>('');
-  const [modalOpen, setModalOpen] = useState<boolean>(pokemonId !== -1);
-  const [selectedPokemon, setSelectedPokemon] = useState<number>(pokemonId);
+  const [detailsModalOpen, setDetailsModalOpen] = useState<boolean>(pokemonId !== undefined);
+  const [errorModalOpen, setErrorModalOpen] = useState<boolean>(Number.isNaN(pokemonId));
+  const [selectedPokemon, setSelectedPokemon] = useState<number>(pokemonId ?? -1);
   const { data, loading, error } = useGetPokemons();
   const navigate = useNavigate();
 
@@ -37,12 +39,19 @@ export const PokemonListPage = ({ pokemonId = -1 }: IPokemonListPage) => {
   const onClickButton = (id: number) => {
     navigate(`/pokemon/${id}`);
     console.log(id);
-    setModalOpen(true);
+    setDetailsModalOpen(true);
     setSelectedPokemon(id);
   };
 
-  const closeModal = () => {
-    setModalOpen(false);
+  const closeDetailsModal = () => {
+    setDetailsModalOpen(false);
+    setSelectedPokemon(-1);
+    navigate(`/list`);
+  };
+
+  const closeErrorModal = () => {
+    setErrorModalOpen(false);
+    setSelectedPokemon(-1);
     navigate(`/list`);
   };
 
@@ -65,8 +74,20 @@ export const PokemonListPage = ({ pokemonId = -1 }: IPokemonListPage) => {
 
   return (
     <div className={classes.root}>
-      {modalOpen && <PokemonDetailsModal handleClose={closeModal} pokemonId={selectedPokemon} />}
-      <input type="text" value={searchString} onChange={onChangeSearchString} />
+      {errorModalOpen && <ErrorModal handleClose={closeErrorModal} />}
+      {detailsModalOpen && selectedPokemon > 0 && (
+        <PokemonDetailsModal handleClose={closeDetailsModal} pokemonId={selectedPokemon} />
+      )}
+      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+      <label htmlFor="search-bar">Search for a Pokemon </label>
+      <br />
+      <input
+        className={classes.searchBar}
+        id="search-bar"
+        type="text"
+        value={searchString}
+        onChange={onChangeSearchString}
+      />
       <ul className={classes.list}>{generateSearchResults()}</ul>
     </div>
   );
@@ -81,8 +102,13 @@ const useStyles = tss.create(({ theme }) => ({
     flexWrap: 'wrap',
     maxWidth: '100%',
     flexDirection: 'row',
+    paddingLeft: 0,
   },
   listItem: {
     listStyle: 'none',
+  },
+  searchBar: {
+    padding: 12,
+    marginTop: 8,
   },
 }));

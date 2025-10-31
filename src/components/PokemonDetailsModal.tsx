@@ -71,7 +71,7 @@ export const PokemonDetailsModal = (props: IPokemonDetailsModal) => {
         <table>
           <tbody>
             {data.stats.map((stat) => (
-              <StatBar statName={stat.statName} baseStat={stat.baseStat} />
+              <StatBar statName={stat.statName} baseStat={stat.baseStat} key={stat.statName} />
             ))}
           </tbody>
         </table>
