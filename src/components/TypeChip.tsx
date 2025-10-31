@@ -19,7 +19,7 @@ const useStyles = tss.withParams<{ typeName: PokemonType }>().create(({ theme, t
     backgroundColor: theme.color.type[typeName],
     color: theme.color.text.primary,
     textTransform: 'uppercase',
-    textShadow: '1px 1px black', // TODO: don't hardcode the color black
+    textShadow: '1px 1px black',
     display: 'inline-flex',
     textAlign: 'center',
     minWidth: 75,

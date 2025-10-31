@@ -6,7 +6,11 @@ function useContext() {
   const theme = {
     color: {
       surface: '#000E1C',
-      modal: '#001a33',
+      card: {
+        primary: '#001a33',
+        hover: '#08223b',
+        border: '#000922',
+      },
       text: {
         primary: '#FAFAFA',
         secondary: '#AAAAAA',

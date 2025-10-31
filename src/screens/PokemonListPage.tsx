@@ -75,7 +75,7 @@ export const PokemonListPage = ({ pokemonId }: IPokemonListPage) => {
       )}
       <h1>Pokédex</h1>
       <label htmlFor="search-bar">
-        Pokémon Search
+        Search for a Pokémon
         <br />
         <input
           className={classes.searchBar}
