@@ -1,9 +1,9 @@
 import React from 'react';
-import { Stat, useGetPokemonDetails } from 'src/hooks/useGetPokemons';
+import { Stat, useGetPokemonDetails } from '../hooks/useGetPokemons';
 import { TypeChip } from './TypeChip';
 import { IndeterminateProgressIndicator } from './IndeterminateProgressIndicator';
-import { tss } from 'src/tss';
-import { PokemonStatEnum } from 'src/types';
+import { tss } from '../tss';
+import { PokemonStatEnum } from '../types';
 
 interface IPokemonDetailsModal {
   handleClose: () => void;
@@ -42,14 +42,13 @@ export const PokemonDetailsModal = (props: IPokemonDetailsModal) => {
   const { classes } = useStyles();
   const getDialogContents = () => {
     if (loading) {
-      // todo: make loading icon slightly bigger and center it
       return <IndeterminateProgressIndicator />;
     }
     if (error) {
-      return <p>Could not load data.</p>;
+      return <p>There was an error loading the Pokemon details.</p>;
     }
     if (!data) {
-      return <p>Could not load data.</p>;
+      return <p>Could not load Pokemon details.</p>;
     }
     return (
       <>

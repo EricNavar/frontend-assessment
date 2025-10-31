@@ -1,7 +1,7 @@
 import React from 'react';
-import { render } from 'src/test-utils';
+import { render } from '../test-utils';
 import { PokemonListItem } from './PokemonListItem';
-import { bulbasaurSummary } from 'src/__mocks__/mock-pokemon';
+import { bulbasaurSummary } from '../__mocks__/mock-pokemon';
 
 describe('PokemonListItem', () => {
   test('it renders', () => {

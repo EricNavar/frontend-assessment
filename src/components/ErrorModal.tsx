@@ -1,5 +1,5 @@
 import React from 'react';
-import { tss } from 'src/tss';
+import { tss } from '../tss';
 
 interface IErrorModal {
   handleClose: () => void;

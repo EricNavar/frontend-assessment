@@ -1,11 +1,11 @@
 import React, { useMemo, useState } from 'react';
 import { tss } from '../tss';
-import { Pokemon, useGetPokemons } from 'src/hooks/useGetPokemons';
-import { PokemonListItem } from 'src/components/PokemonListItem';
-import { IndeterminateProgressIndicator } from 'src/components/IndeterminateProgressIndicator';
-import { PokemonDetailsModal } from 'src/components/PokemonDetailsModal';
+import { Pokemon, useGetPokemons } from '../hooks/useGetPokemons';
+import { PokemonListItem } from '../components/PokemonListItem';
+import { IndeterminateProgressIndicator } from '../components/IndeterminateProgressIndicator';
+import { PokemonDetailsModal } from '../components/PokemonDetailsModal';
 import { useNavigate } from 'react-router-dom';
-import { ErrorModal } from 'src/components/ErrorModal';
+import { ErrorModal } from '../components/ErrorModal';
 
 // filters based on name
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp

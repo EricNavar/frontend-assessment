@@ -1,12 +1,12 @@
 import React from 'react';
-import { act, fireEvent, render } from 'src/test-utils';
+import { act, fireEvent, render } from '../test-utils';
 import { PokemonListPage } from './PokemonListPage';
 import { useNavigate } from 'react-router-dom';
-import { useGetPokemonDetails, useGetPokemons } from 'src/hooks/useGetPokemons';
-import { bulbasaurSummary, bulbasaurDetails, charizardSummary } from 'src/__mocks__/mock-pokemon';
+import { useGetPokemonDetails, useGetPokemons } from '../hooks/useGetPokemons';
+import { bulbasaurSummary, bulbasaurDetails, charizardSummary } from '../__mocks__/mock-pokemon';
 
-jest.mock('src/hooks/useGetPokemons', () => ({
-  ...jest.requireActual('src/hooks/useGetPokemons'),
+jest.mock('../hooks/useGetPokemons', () => ({
+  ...jest.requireActual('../hooks/useGetPokemons'),
   useGetPokemons: jest.fn().mockReturnValue({ data: [{ id: '1', name: 'Bulbasaur' }] }),
   useGetPokemonDetails: jest.fn(),
 }));

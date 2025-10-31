@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 import { useQuery } from '@apollo/client/react';
-import { PokemonStatEnum } from 'src/types';
+import { PokemonStatEnum } from '../types';
 
 export interface Pokemon {
   id: number;

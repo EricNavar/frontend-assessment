@@ -1,6 +1,6 @@
 import React from 'react';
-import { tss } from 'src/tss';
-import { PokemonType } from 'src/types';
+import { tss } from '../tss';
+import { PokemonType } from '../types';
 
 export const TypeChip = (props: { typeName: string }) => {
   const { typeName } = props;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pokemon } from 'src/hooks/useGetPokemons';
+import { Pokemon } from '../hooks/useGetPokemons';
 import { tss } from '../tss';
 import { TypeChip } from './TypeChip';
 

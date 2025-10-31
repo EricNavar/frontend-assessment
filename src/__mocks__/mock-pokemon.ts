@@ -1,5 +1,5 @@
-import { Pokemon, PokemonDetail } from 'src/hooks/useGetPokemons';
-import { PokemonStatEnum } from 'src/types';
+import { Pokemon, PokemonDetail } from '../hooks/useGetPokemons';
+import { PokemonStatEnum } from '../types';
 
 export const bulbasaurSummary: Pokemon = {
   id: 1,
