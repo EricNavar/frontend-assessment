@@ -3,7 +3,7 @@ import { act, fireEvent, render } from 'src/test-utils';
 import { PokemonListPage } from './PokemonListPage';
 import { useNavigate } from 'react-router-dom';
 import { useGetPokemonDetails, useGetPokemons } from 'src/hooks/useGetPokemons';
-import { bulbasaurSummary, bulbasaurDetails } from 'src/__mocks__/mock-pokemon';
+import { bulbasaurSummary, bulbasaurDetails, charizardSummary } from 'src/__mocks__/mock-pokemon';
 
 jest.mock('src/hooks/useGetPokemons', () => ({
   ...jest.requireActual('src/hooks/useGetPokemons'),
@@ -56,8 +56,6 @@ describe('PokemonListPage', () => {
     expect(mockNavigate).toHaveBeenCalledWith('/pokemon/1');
   });
 
-  test.todo('typing in the search bar filters the results');
-
   test('loading state', () => {
     useGetPokemonsMock.mockReturnValue({
       data: [],
@@ -92,5 +90,24 @@ describe('PokemonListPage', () => {
     const { queryByText, getByText } = render(<PokemonListPage />);
     getByText('There is no data.');
     expect(queryByText('Bulbasaur')).toBeNull();
+  });
+
+  test('typing in the search bar filters the results', async () => {
+    useGetPokemonsMock.mockReturnValue({
+      data: [bulbasaurSummary, charizardSummary],
+      error: undefined,
+      loading: false,
+    });
+
+    const { getByText, getByLabelText, queryByText } = render(<PokemonListPage />);
+
+    getByText('Bulbasaur');
+    getByText('Charizard');
+    fireEvent.change(getByLabelText('Pokemon Search'), { target: { value: 'Bulbasaur' } });
+    getByText('Bulbasaur');
+    expect(queryByText('Charizard')).toBeNull();
+    fireEvent.change(getByLabelText('Pokemon Search'), { target: { value: '' } });
+    getByText('Bulbasaur');
+    getByText('Charizard');
   });
 });

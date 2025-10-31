@@ -73,16 +73,19 @@ export const PokemonListPage = ({ pokemonId }: IPokemonListPage) => {
       {detailsModalOpen && selectedPokemon > 0 && (
         <PokemonDetailsModal handleClose={closeDetailsModal} pokemonId={selectedPokemon} />
       )}
-      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-      <label htmlFor="search-bar">Search for a Pokemon </label>
-      <br />
-      <input
-        className={classes.searchBar}
-        id="search-bar"
-        type="text"
-        value={searchString}
-        onChange={onChangeSearchString}
-      />
+      <h1>Pokedex</h1>
+      <label htmlFor="search-bar">
+        Pokemon Search
+        <br />
+        <input
+          className={classes.searchBar}
+          id="search-bar"
+          type="text"
+          value={searchString}
+          onChange={onChangeSearchString}
+          aria-label="Pokemon search"
+        />
+      </label>
       <ul className={classes.list}>{generateSearchResults()}</ul>
     </div>
   );
