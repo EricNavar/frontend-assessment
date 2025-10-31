@@ -12,8 +12,6 @@ export const PokemonListItem = (props: IPokemonListItem) => {
   const { classes } = useStyles();
   const { data, onClick } = props;
 
-  const onErrorLoadingImage = () => console.log('jddnjk');
-
   return (
     <button className={classes.itemCard} onClick={() => onClick(data.id)}>
       <div>
@@ -22,13 +20,7 @@ export const PokemonListItem = (props: IPokemonListItem) => {
         {data.types?.map((t) => <TypeChip key={t} typeName={t} />)}
       </div>
       <div className={classes.imgWrapper}>
-        <img
-          src={data.sprite}
-          alt={data.name}
-          width="200px"
-          height="200px"
-          onError={onErrorLoadingImage}
-        />
+        <img src={data.sprite} alt={data.name} width="200px" height="200px" />
       </div>
     </button>
   );
